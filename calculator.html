@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator by Ayush</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1, h2 {
+            color: #fff;
+            margin: 0;
+        }
+
+        h2 {
+            font-weight: normal;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #444;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .calculator:hover {
+            transform: scale(1.05);
+        }
+
+        #display {
+            width: 100%;
+            height: 60px;
+            padding: 10px;
+            font-size: 28px;
+            text-align: right;
+            border: 2px solid #666;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #555;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 15px;
+        }
+
+        .btn {
+            background-color: #555;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #777;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        #AC {
+            background-color: #ff4d4d;
+        }
+
+        #AC:hover {
+            background-color: #e60000;
+        }
+
+        #equals {
+            background-color: #28a745;
+            grid-column: span 2;
+        }
+
+        #equals:hover {
+            background-color: #218838;
+        }
+
+        /* Footer Buttons */
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer button {
+            background-color: #555;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer button:hover {
+            background-color: #777;
+            transform: translateY(-2px);
+        }
+
+        .footer button a{
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="keys">
+            <button class="btn" id="AC">AC</button>
+            <button class="btn" id="x">x</button>
+            <button class="btn" value="%">%</button>
+            <button class="btn" value="/">/</button>
+            <button class="btn" value="1">1</button>
+            <button class="btn" value="2">2</button>
+            <button class="btn" value="3">3</button>
+            <button class="btn" value="-">-</button>
+            <button class="btn" value="4">4</button>
+            <button class="btn" value="5">5</button>
+            <button class="btn" value="6">6</button>
+            <button class="btn" value="*">*</button>
+            <button class="btn" value="7">7</button>
+            <button class="btn" value="8">8</button>
+            <button class="btn" value="9">9</button>
+            <button class="btn" value="+">+</button>
+            <button class="btn" value="0">0</button>
+            <button class="btn" value=".">.</button>
+            <button class="btn" id="equals">=</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button><a href="direct_percen.html">Percent</a></button>
+        <button><a href="percent_cal.html">Percent Table</a></button>
+        <button><a href="multi_cal.html">Multi Percent</a></button>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let keys = document.querySelectorAll('.btn');
+        let AC = document.getElementById('AC');
+        let x = document.getElementById('x');
+        let equals = document.getElementById('equals');
+        let input = '';
+        let result = '';
+
+        keys.forEach(key => {
+            key.addEventListener('click', () => {
+                if (key.id === 'AC') {
+                    input = '';
+                    result = '';
+                    display.value = '';
+                } else if (key.id === 'x') {
+                    // Remove the most recent character
+                    input = input.slice(0, -1);
+                    display.value = input;
+                } else if (key.id === 'equals') {
+                    try {
+                        result = eval(input);
+                        display.value = result;
+                        input = result;
+                    } catch (error) {
+                        display.value = 'Error';
+                    }
+                } else {
+                    input += key.value || key.innerText;
+                    display.value = input;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            width: 60%;
+            max-width: 100%;
+            height: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .calculator-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        input[type="number"] {
+            width: 80px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker shade for hover */
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+            display: block;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #calculatedValue {
+            color: #007bff; /* Color for calculated values */
+        }
+
+        .steps {
+            margin-top: 10px;
+            font-size: smaller;
+            color: #555;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .calculator-container {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        @media (min-width: 600px) {
+            .calculator-container {
+                width: 60%;
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-container">
+    <h2>Percentage Calculator</h2>
+
+    <div class="calculator-row">
+        <span>What is</span>
+        <input type="number" id="percent1" placeholder="Percentage">
+        <span>% of</span>
+        <input type="number" id="number1" placeholder="Number">
+        <button onclick="calculate1()">Calculate</button>
+    </div>
+
+    <div class="calculator-row">
+        <input type="number" id="number2" placeholder="Number">
+        <span>is what % of</span>
+        <input type="number" id="number3" placeholder="Total Number">
+        <button onclick="calculate2()">Calculate</button>
+    </div>
+
+    <div class="calculator-row">
+        <input type="number" id="number4" placeholder="Number">
+        <span>is</span>
+        <input type="number" id="percent3" placeholder="Percentage">
+        <span>% of what</span>
+        <button onclick="calculate3()">Calculate</button>
+    </div>
+
+    <div id="result"></div>
+    <div class="steps"></div>
+</div>
+
+<script>
+    function calculate1() {
+        const percent = parseFloat(document.getElementById('percent1').value);
+        const number = parseFloat(document.getElementById('number1').value);
+        if (isNaN(percent) || isNaN(number)) return;
+
+        const result = (percent / 100) * number;
+        document.getElementById('result').innerHTML = `${percent}% of ${number} is <span id="calculatedValue">${result.toFixed(2)}</span>`;
+        document.querySelector('.steps').innerHTML = `Steps: ${percent}% × ${number} = ${result.toFixed(2)}`;
+    }
+
+    function calculate2() {
+        const number2 = parseFloat(document.getElementById('number2').value);
+        const number3 = parseFloat(document.getElementById('number3').value);
+        if (isNaN(number2) || isNaN(number3)) return;
+
+        const result = (number2 / number3) * 100;
+        document.getElementById('result').innerHTML = `${number2} is <span id="calculatedValue">${result.toFixed(2)}%</span> of ${number3}`;
+        document.querySelector('.steps').innerHTML = `Steps: ${number2} ÷ ${number3} = ${(number2 / number3).toFixed(2)} = ${result.toFixed(2)}%`;
+    }
+
+    function calculate3() {
+        const number4 = parseFloat(document.getElementById('number4').value);
+        const percent3 = parseFloat(document.getElementById('percent3').value);
+        if (isNaN(number4) || isNaN(percent3)) return;
+
+        const result = number4 / (percent3 / 100);
+        document.getElementById('result').innerHTML = `${number4} is ${percent3}% of <span id="calculatedValue">${result.toFixed(2)}</span>`;
+        document.querySelector('.steps').innerHTML = `Steps: ${number4} ÷ ${percent3}% = ${result.toFixed(2)}`;
+    }
+</script>
+</body>
+</html>
